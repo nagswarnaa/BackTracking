@@ -38,3 +38,58 @@ Using dynamic programming, we can store the solutions to these subproblems in a 
 This method ensures we only compute each Fibonacci number once, making it significantly more efficient than the naive recursive approach, which computes many Fibonacci numbers multiple times.
 
 In summary, the optimal substructure of the Fibonacci sequence allows us to build an efficient solution using dynamic programming by combining the solutions of smaller, overlapping subproblems.
+
+Overlapping subproblems is another key concept in dynamic programming. It refers to a scenario where the same smaller problems are solved multiple times during the computation of the overall problem. This redundancy makes a naive recursive solution inefficient and justifies using dynamic programming or memoization to store the results of these subproblems.
+
+### Example: Computing the Fibonacci Sequence
+
+Consider the computation of the Fibonacci sequence again, where:
+\[ F(n) = F(n-1) + F(n-2) \]
+with initial conditions:
+\[ F(0) = 0 \]
+\[ F(1) = 1 \]
+
+### Naive Recursive Approach:
+When implementing a naive recursive function to compute \( F(n) \), you would typically call it like this:
+
+```python
+def fibonacci(n):
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
+    return fibonacci(n - 1) + fibonacci(n - 2)
+```
+
+For each non-base case, the function calls itself twice, and each of those function calls resolves into further calls. Here’s a breakdown of how the function calls expand for \( n = 5 \):
+
+- \( F(5) \)
+  - \( F(4) \) + \( F(3) \)
+    - \((F(3) + F(2)) + (F(2) + F(1))\)
+      - \(((F(2) + F(1)) + (F(1) + F(0))) + ((F(1) + F(0)) + 1)\)
+        - etc...
+
+Notice how \( F(2) \) is computed multiple times and each of its calculations in turn recomputes \( F(1) \) and \( F(0) \). As \( n \) increases, the number of redundant calculations grows exponentially.
+
+### Dynamic Programming Approach (Memoization):
+To address the inefficiency of recomputing the same values repeatedly, dynamic programming suggests storing these results:
+
+```python
+def fibonacci(n, memo={}):
+    if n in memo:
+        return memo[n]
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
+    memo[n] = fibonacci(n - 1, memo) + fibonacci(n - 2, memo)
+    return memo[n]
+```
+
+In this approach:
+- Each Fibonacci number is computed once and stored in a dictionary (`memo`).
+- Subsequent requests for the same Fibonacci number retrieve the value from `memo`, avoiding redundant computations.
+
+This transformation drastically improves the efficiency, reducing the time complexity from exponential to linear in terms of the number of function calls, thanks to the reuse of results from the overlapping subproblems.
+
+In essence, the overlapping subproblems property makes problems suitable for dynamic programming, as it ensures that efficiency gains are possible by caching and reusing solutions.
