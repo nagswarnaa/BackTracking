@@ -1,3 +1,6 @@
+## Dynamic Programming
+
+### Optimal substructure
 Optimal substructure is a principle mainly used in the context of dynamic programming and some greedy algorithms. It refers to a situation where the optimal solution to a problem can be constructed efficiently from optimal solutions to its subproblems.
 
 This property is crucial because it ensures that once you've found the optimal solutions to the subproblems, you can combine them to solve the overall problem. In other words, a problem exhibits optimal substructure if an optimal solution to the entire problem contains within it optimal solutions to the subproblems.
