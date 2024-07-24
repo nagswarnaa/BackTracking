@@ -1,10 +1,13 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
-        if n<=2:
-            return n        
-        dp=[-1]*n
-        dp[0]=1
-        dp[1]=2
-        for x in range(2,n):
-            dp[x]=dp[x-1]+dp[x-2]
-        return dp[n-1]
+        before_last_step = 1
+        last_step = 2
+        if n == before_last_step:
+            return before_last_step 
+        if n == last_step:
+            return last_step 
+        for x in range(3, n+1):
+            num = last_step + before_last_step
+            before_last_step = last_step
+            last_step = num
+        return last_step
